@@ -1,0 +1,94 @@
+function obj2html(obj) {
+    let body = `<div class="doc-struct"><table>`;
+    body += convert(obj)
+    body += `</table></div>`
+    return body
+}
+exports.obj2html = obj2html;
+
+function convert(item, body = "") {
+    if (item instanceof Array) {
+        let itemVal = item[0];
+        // 値がオブジェクトの場合
+        if (itemVal instanceof Object) {
+            body = createlistTable(item, body);
+        }
+        else {
+            // 値が文字列要素の場合
+            body += `<ul>`
+            for (let idx in item) {
+                body += `<li>${item[idx]}</li>`;
+            }
+            body += `</ul>`
+        }
+    }
+    else {
+        for (let itemKey in item) {
+            let itemVal = item[itemKey];
+            // 値がオブジェクト・配列の場合
+            if (itemVal instanceof Object || itemVal instanceof Array) {
+                body += `<tr><th>${itemKey}</th><td><table>`;
+                body = convert(itemVal, body);
+                body += `</table></td></tr>`;
+            }
+            else {
+                // 値が文字列要素の場合
+                body += `<tr><th>${itemKey}</th>`;
+                body += `<td>${itemVal}</td></tr>`;
+            }
+        }
+    }
+    return body;
+}
+exports.convert = convert;
+
+// Hash の List については一覧表を作る
+function createlistTable(item, body) {
+
+    // 重複しないキーのリストを作成
+    var childKeyList = new Array();
+    for (let idx in item) {
+        let itemVal = item[idx];
+        let child = itemVal;
+        for (let childKey in child) {
+            if (childKeyList.indexOf(childKey) == -1) {
+                childKeyList.push(childKey);
+            }
+        }
+    }
+
+    body += `<table><tr>`;
+
+    // テーブルヘッダ部
+    for (let idx in childKeyList) {
+        body += `<th>${childKeyList[idx]}</th>`;
+    }
+    body += "</tr>";
+
+    // テーブルデータ部
+    for (let idx in item) {
+        let childHash = item[idx];
+        body += "<tr>";
+        for (let idx in childKeyList) {
+            let childVal = childHash[childKeyList[idx]];
+            // 子階層がオブジェクトの場合は再帰呼び出し
+            if (childVal instanceof Object) {
+                body += `<td><table>`;
+                body = convert(childVal, body);
+                body += `</table></td>`;
+            }
+            // 子階層がArrayの場合は再帰呼び出し
+            if (childVal instanceof Object) {
+                body += `<table>`;
+                body = createlistTable(childVal, body);
+                body += `</table>`;
+            }
+            else {
+                body += `<td>${childVal}</td>`;
+            }
+        }
+        body += `</tr>`;
+    }
+    return body;
+}
+exports.createlistTable = createlistTable;

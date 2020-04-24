@@ -46,12 +46,12 @@ exports.convert = convert;
 function createlistTable(item, body) {
 
     // 重複しないキーのリストを作成
-    var childKeyList = new Array();
+    var childKeyList = [];
     for (let idx in item) {
         let itemVal = item[idx];
         let child = itemVal;
         for (let childKey in child) {
-            if (childKeyList.indexOf(childKey) == -1) {
+            if (childKeyList.indexOf(childKey) === -1) {
                 childKeyList.push(childKey);
             }
         }

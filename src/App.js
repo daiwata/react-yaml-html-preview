@@ -15,29 +15,46 @@ export default class App extends React.Component {
 
     render() {
         return (
-            <table>
-                <tbody>
-                    <tr>
-                        <td valign="top">
-                            <textarea
-                                rows='50'
-                                cols='80'
-                                onChange={this.handleChange}
-                                defaultValue={this.state.yml}>
-                            </textarea>
-                        </td>
-                        <td valign="top">
-                            <div dangerouslySetInnerHTML={{ __html: this.state.out }} />
-                        </td>
-                    </tr>
-                </tbody>
-            </table >
+            <div>
+                <h1>YAML HTML Preview</h1>
+                <span>
+                    <a href="https://github.com/daiwata/react-yaml-html-preview" target="_blank">GitHub</a>
+                    ｜
+                    <a href="https://marketplace.visualstudio.com/items?itemName=daiwata.yaml-preview" target="_blank">VS Code Extension</a>
+                </span>
+                <hr />
+                <table>
+                    <tbody>
+                        <tr>
+                            <td valign="top">
+                                <span>↓ Input YAML</span><br />
+                                <textarea
+                                    rows='40'
+                                    cols='60'
+                                    onChange={this.handleChange}
+                                    defaultValue={this.state.yml}>
+                                </textarea>
+                            </td>
+                            <td valign="top">
+                                <span>↓ Realtime HTML Preview</span><br />
+                                <div dangerouslySetInnerHTML={
+                                    { __html: this.state.out }
+                                } />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table >
+            </div>
         )
     }
 
     handleChange = event => {
         try {
-            this.setState({ out: obj2html(jsyaml.safeLoad(event.target.value)) })
+            this.setState({
+                out: obj2html(
+                    jsyaml.safeLoad(event.target.value)
+                )
+            })
         } catch (e) {
             // Nothing to do
         }

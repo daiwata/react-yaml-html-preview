@@ -1,0 +1,25 @@
+div.doc-struct table{
+    border:none;
+    border-collapse:collapse;
+}
+div.doc-struct th {
+    white-space:normal;
+    background-color:#eeeeee;
+    padding:5px;
+    width:70px;
+    border:1px solid silver;
+    border-collapse:collapse;
+    vertical-align:top;
+}
+div.doc-struct td {
+    word-wrap: break-word;
+    background-color:#ffffff;
+    padding:5px;
+    border:1px solid silver;
+    border-collapse:collapse;
+}
+div.doc-struct td.hashlist {
+    max-width:300px;
+    word-wrap: break-word; 
+    overflow:auto;
+}

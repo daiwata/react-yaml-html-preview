@@ -8,6 +8,11 @@ exports.obj2html = obj2html;
 
 function convert(item, body = "") {
 
+    // 文字列の場合は何もしない
+    if (isString(item)) {
+        return body;
+    }
+
     // 配列の場合
     if (item instanceof Array) {
         let itemVal = item[0];
@@ -23,8 +28,7 @@ function convert(item, body = "") {
             }
             body += `</ul>`
         }
-    }
-    else {
+    } else {
         for (let itemKey in item) {
             let itemVal = item[itemKey];
             // 値がオブジェクト・配列の場合
@@ -51,6 +55,9 @@ function createlistTable(item, body) {
     var childKeyList = [];
     for (let idx in item) {
         let itemVal = item[idx];
+        if (isString(itemVal)) {
+            break;
+        }
         let child = itemVal;
         for (let childKey in child) {
             if (childKeyList.indexOf(childKey) === -1) {
@@ -96,3 +103,7 @@ function createlistTable(item, body) {
     return body;
 }
 exports.createlistTable = createlistTable;
+
+function isString(obj) {
+    return typeof (obj) == "string" || obj instanceof String;
+};

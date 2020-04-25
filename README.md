@@ -5,7 +5,7 @@ YAML を入力すると、リアルタイムにHTMLの table 形式でプレビ�
 Webサービスとして公開しています。(GitHub Pages)
 - [YAML HTML Preview - github pages](https://daiwata.github.io/react-yaml-html-preview/)
 
-![](image.png)  
+![image.gif](image.gif)  
 <br>
 
 ## ◆特徴

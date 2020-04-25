@@ -18,10 +18,10 @@ export default class App extends React.Component {
             <table>
                 <tbody>
                     <tr>
-                        <td>
+                        <td valign="top">
                             <textarea
                                 rows='50'
-                                cols='50'
+                                cols='80'
                                 onChange={this.handleChange}
                                 defaultValue={this.state.yml}>
                             </textarea>

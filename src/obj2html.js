@@ -7,6 +7,8 @@ function obj2html(obj) {
 exports.obj2html = obj2html;
 
 function convert(item, body = "") {
+
+    // 配列の場合
     if (item instanceof Array) {
         let itemVal = item[0];
         // 値がオブジェクトの場合
@@ -17,7 +19,7 @@ function convert(item, body = "") {
             // 値が文字列要素の場合
             body += `<ul>`
             for (let idx in item) {
-                body += `<li>${item[idx]}</li>`;
+                body += `<li>${item[idx]}</li>`.replace(/\r?\n/g, "<br>");
             }
             body += `</ul>`
         }
@@ -34,7 +36,7 @@ function convert(item, body = "") {
             else {
                 // 値が文字列要素の場合
                 body += `<tr><th>${itemKey}</th>`;
-                body += `<td>${itemVal}</td></tr>`;
+                body += `<td>${itemVal}</td></tr>`.replace("\n", "<br>");
             }
         }
     }
@@ -57,7 +59,7 @@ function createlistTable(item, body) {
         }
     }
 
-    body += `<table><tr>`;
+    body += `<tr>`;
 
     // テーブルヘッダ部
     for (let idx in childKeyList) {
@@ -71,21 +73,23 @@ function createlistTable(item, body) {
         body += "<tr>";
         for (let idx in childKeyList) {
             let childVal = childHash[childKeyList[idx]];
+            body += "<td>"
             // 子階層がオブジェクトの場合は再帰呼び出し
             if (childVal instanceof Object) {
-                body += `<td><table>`;
+                body += `<table>`;
                 body = convert(childVal, body);
-                body += `</table></td>`;
+                body += `</table>`;
             }
             // 子階層がArrayの場合は再帰呼び出し
-            if (childVal instanceof Object) {
+            else if (childVal instanceof Object) {
                 body += `<table>`;
                 body = createlistTable(childVal, body);
                 body += `</table>`;
             }
             else {
-                body += `<td>${childVal}</td>`;
+                body += `${childVal}`;
             }
+            body += "</td>"
         }
         body += `</tr>`;
     }

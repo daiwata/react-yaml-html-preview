@@ -5,8 +5,8 @@ div.doc-struct table{
 div.doc-struct th {
     white-space:normal;
     background-color:#eeeeee;
-    padding:5px;
-    width:70px;
+    padding:7px 5px;
+    width:75px;
     border:1px solid silver;
     border-collapse:collapse;
     vertical-align:top;
@@ -14,12 +14,17 @@ div.doc-struct th {
 div.doc-struct td {
     word-wrap: break-word;
     background-color:#ffffff;
-    padding:5px;
+    padding:7px 5px;
     border:1px solid silver;
     border-collapse:collapse;
 }
 div.doc-struct td.hashlist {
-    max-width:300px;
+    max-width:500px;
     word-wrap: break-word; 
     overflow:auto;
+}
+div.doc-struct ul {
+    padding-left:20px;
+    margin:0px;
+    list-style-type: circle;
 }
